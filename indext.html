@@ -45,7 +45,7 @@
           </nav>
         
         <!--이미지 썸네일-->
-          <div class="position-relative"><img src="images/banner.png" class="img-fluid" alt="..."></div> 
+          <div class="position-relative"><img src="images/banner.png" class="img-fluid w-100" alt="..."></div> 
         
         <h3 class="mt-5 mb-3" id="hh">신규 등록 상품</h3>
         <!--조회,삭제,input셀렉트 폼-->
@@ -107,6 +107,7 @@
               </svg>
           </a>
     </div> 
+    <!--페이지네이션-->
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
           <li class="page-item disabled">
@@ -132,7 +133,7 @@
       
       const h3 = document.getElementById('hh');
       h3.textContent = `신규 등록 상품(${year}-${month}-${date})`
-
+    // Crawling 기능 넣기전 임시로 데이터값 보여주는 코드
       const data = [
           { category: "상의", brand: 'Supreme', product: '슈프림 박스로고 후드티', price: '390,000' },
           { category: "하의", brand: 'DIESEL', product: '디젤 트랙 팬츠', price: '188,000' },
@@ -143,6 +144,7 @@
       
       const dataTable = document.getElementById('data-table');
       
+    // dataTable에 들어있는 값을 foreach문으로 돌려서 하나씩 Row 테이블로 아이템 넣음 그리고 각 테이블 마다 cell 추가해서 checkbox 넣고 추후에 체크하면 삭제 까지 만들 예정.
       data.forEach((item) => {
         const row = dataTable.insertRow();
         row.insertCell(0).innerHTML = item.category;
