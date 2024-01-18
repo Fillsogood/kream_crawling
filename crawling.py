@@ -58,7 +58,7 @@ def execute_query(conn,query,args=None):
 
 #페이지 다운 함수
 def key_down_reload():
-    for i in range(20):
+    for i in range(5):
         driver.find_element(By.TAG_NAME,"body").send_keys(Keys.PAGE_DOWN)
         time.sleep(0.5)
 
@@ -72,205 +72,29 @@ def class_c(items):
 
 #shop 클릭
 driver.find_elements(By.CSS_SELECTOR,".gnb_list")[0].find_elements(By.CSS_SELECTOR,".gnb_item")[2].click()
-time.sleep(0.5)
-#인기순 클릭 및 발매일순 클릭
-click_p_r()
 
-#스크롤
-key_down_reload()
-
-html = driver.page_source
-soup = BeautifulSoup(html,"html.parser")
-
-items = soup.select(".item_inner")
-
-
-
-#클래스명 체크
-class_c(items)
-
-#발매일 전체 크롤링
-product_list=[]
-for i in items:
-    #미발매는 크롤링 제외
-    Unsold = i.select_one(".status_value.sale")
-    if Unsold:
-        continue
-    category = "전체"
-    product_brand = i.select_one(".product_info_brand.brand").text #str형
-    product_name = i.select_one(".translated_name").text #str형
-    product_price = i.select_one(".amount").text.split(" ")[1] #str형 공백 제거
-    
-    
-    
-    item = [category,product_brand,product_name,product_price]
-    product_list.append(item)
-    
-    for i in product_list:
-        execute_query(conn,"INSERT INTO kream (category, brand, product_name, price) VALUES (%s, %s, %s, %s)", (i[0],i[1],i[2],i[3]))
-
-
-
-#신발 카테고리 선택
-driver.find_elements(By.CSS_SELECTOR,".ul_tab.ul_search_tab.inline.has_button")[0].find_elements(By.CSS_SELECTOR,".tab_name")[3].click()
-time.sleep(0.5)
-#인기순 클릭 및 발매일순 클릭
-click_p_r()
-
-#스크롤
-key_down_reload()
 time.sleep(2)
-html = driver.page_source
-soup = BeautifulSoup(html,"html.parser")
 
-items = soup.select(".item_inner")
+#모든 카테고리 링크 이동
+cat_shell =driver.find_elements(By.CLASS_NAME,"li_tab ")
 
-
-#클래스명 체크
-class_c(items)
-
-
-#발매일 신발 크롤링
-product_Shoes=[]
-for i in items:
-    #미발매는 크롤링 제외
-    Unsold = i.select_one(".status_value.sale")
-    if Unsold:
-        continue
-    category = "신발"
-    product_brand = i.select_one(".product_info_brand.brand").text #str형
-    product_name = i.select_one(".translated_name").text #str형
-    product_price = i.select_one(".amount").text.split(" ")[1] #str형 공백 제거
-    
-    
-    
-    item = [category,product_brand,product_name,product_price]
-    product_Shoes.append(item)
-
-    for i in product_Shoes:
-        execute_query(conn,"INSERT INTO kream (category, brand, product_name, price) VALUES (%s, %s, %s, %s)", (i[0],i[1],i[2],i[3]))
-
-
-
-#상의 카테고리 선택
-driver.find_elements(By.CSS_SELECTOR,".ul_tab.ul_search_tab.inline.has_button")[0].find_elements(By.CSS_SELECTOR,".tab_name")[4].click()
-time.sleep(0.5)
-#인기순 클릭 및 발매일순 클릭
-click_p_r()
-
-#스크롤
-key_down_reload()
-time.sleep(2)
-html = driver.page_source
-soup = BeautifulSoup(html,"html.parser")
-
-items = soup.select(".item_inner")
-
-
-#클래스명 체크
-class_c(items)
-
-
-#발매일 상의 크롤링
-product_clothes=[]
-for i in items:
-    #미발매는 크롤링 제외
-    Unsold = i.select_one(".status_value.sale")
-    if Unsold:
-        continue
-    category = "상의"
-    product_brand = i.select_one(".product_info_brand.brand").text #str형
-    product_name = i.select_one(".translated_name").text #str형
-    product_price = i.select_one(".amount").text.split(" ")[1] #str형 공백 제거
-    
-    
-    
-    item = [category,product_brand,product_name,product_price]
-    product_clothes.append(item)
-
-    for i in product_clothes:
-        execute_query(conn,"INSERT INTO kream (category, brand, product_name, price) VALUES (%s, %s, %s, %s)", (i[0],i[1],i[2],i[3]))
-
-
-
-#하의 카테고리 선택
-driver.find_elements(By.CSS_SELECTOR,".ul_tab.ul_search_tab.inline.has_button")[0].find_elements(By.CSS_SELECTOR,".tab_name")[5].click()
-time.sleep(0.5)
-#인기순 클릭 및 발매일순 클릭
-click_p_r()
-
-#스크롤
-key_down_reload()
-time.sleep(2)
-html = driver.page_source
-soup = BeautifulSoup(html,"html.parser")
-
-items = soup.select(".item_inner")
-
-
-#클래스명 체크
-class_c(items)
-
-
-#발매일 하의 크롤링
-product_pants=[]
-for i in items:
-    #미발매는 크롤링 제외
-    Unsold = i.select_one(".status_value.sale")
-    if Unsold:
-        continue
-    category = "하의"
-    product_brand = i.select_one(".product_info_brand.brand").text #str형
-    product_name = i.select_one(".translated_name").text #str형
-    product_price = i.select_one(".amount").text.split(" ")[1] #str형 공백 제거
-    
-    
-    
-    item = [category,product_brand,product_name,product_price]
-    product_pants.append(item)
-
-    for i in product_pants:
-        execute_query(conn,"INSERT INTO kream (category, brand, product_name, price) VALUES (%s, %s, %s, %s)", (i[0],i[1],i[2],i[3]))
-
-#패션잡화 카테고리 선택
-driver.find_elements(By.CSS_SELECTOR,".ul_tab.ul_search_tab.inline.has_button")[0].find_elements(By.CSS_SELECTOR,".tab_name")[9].click()
-time.sleep(0.5)
-#인기순 클릭 및 발매일순 클릭
-click_p_r()
-
-#스크롤
-key_down_reload()
-time.sleep(2)
-html = driver.page_source
-soup = BeautifulSoup(html,"html.parser")
-
-items = soup.select(".item_inner")
-
-
-#클래스명 체크
-class_c(items)
-
-
-#발매일 패션잡화 크롤링
-product_fashion=[]
-for i in items:
-    #미발매는 크롤링 제외
-    Unsold = i.select_one(".status_value.sale")
-    if Unsold:
-        continue
-    category = "패션잡화"
-    product_brand = i.select_one(".product_info_brand.brand").text #str형
-    product_name = i.select_one(".translated_name").text #str형
-    product_price = i.select_one(".amount").text.split(" ")[1] #str형 공백 제거
-    
-    
-    
-    item = [category,product_brand,product_name,product_price]
-    product_fashion.append(item)
-
-    for i in product_fashion:
-        execute_query(conn,"INSERT INTO kream (category, brand, product_name, price) VALUES (%s, %s, %s, %s)", (i[0],i[1],i[2],i[3]))
-
+for i in cat_shell:
+    i.find_element(By.CSS_SELECTOR,".tab_name").click()
+    time.sleep(1)
+    category = i.find_element(By.CSS_SELECTOR,".tab_name").text
+    if category != "전체" and category != "럭셔리": 
+        click_p_r()
+        time.sleep(1)
+        key_down_reload()
+        html = driver.page_source
+        soup = BeautifulSoup(html,"html.parser")
+        items = soup.select(".item_inner")
+        for j in items:
+            product_brand = j.select_one(".product_info_area").text #str형
+            product_name = j.select_one(".translated_name").text #str형
+            product_price = j.select_one(".amount").text.split(" ")[1] #str형 공백 제거
+            execute_query(conn,"INSERT INTO kream (category, brand, product_name, price) VALUES (%s, %s, %s, %s)", (category,product_brand,product_name,product_price))
+conn.close()          
 driver.quit()
     
 
