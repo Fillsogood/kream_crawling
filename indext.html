@@ -14,7 +14,7 @@
               <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
               <select class="form-select" id="inlineFormSelectPref">
                 <!-- 카테고리 셀렉트 코드를 넣어주세요-->
-                <option selected>카테고리</option>
+                <option selected>전체</option>
                 <option value="상의">상의</option>
                 <option value="하의">하의</option>
                 <option value="신발">신발</option>
@@ -51,6 +51,7 @@
                 </tr>
             </thead>
             <tbody id="data-table">
+
             </tbody>
         </table>
         <!--깃허브 이미지 링크-->
@@ -106,7 +107,6 @@
     // dataTable에 들어있는 값을 foreach문으로 돌려서 하나씩 Row 테이블로 아이템 넣음 그리고 각 테이블 마다 cell 추가해서 checkbox 넣고 추후에 체크하면 삭제 까지 만들 예정.
       data.forEach((item) => {
         const row = dataTable.insertRow();
-        row.className ='tr'
         row.insertCell(0).innerHTML = item.category;
         row.insertCell(1).innerHTML = item.brand;
         row.insertCell(2).innerHTML = item.product;
@@ -171,8 +171,6 @@
      //삭제 기능
       const delete_btn = document.getElementById('delete_btn')
       
-      const tr =document.querySelectorAll(".tr")
-
       delete_btn.addEventListener("click",()=>{
         const chk_ = document.querySelectorAll('input.chk:checked');//input타입 체크박스의 체크값이 true인 값만
         
