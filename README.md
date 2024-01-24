@@ -18,5 +18,7 @@
 ![image](https://github.com/Fillsogood/kream_crawling/assets/94848819/f0177dba-0319-4d0c-a8d7-1b5db2825e10)
 
 
+#### 페이지네이션 구현
+![image](https://github.com/Fillsogood/kream_crawling/assets/94848819/012433fa-fc0a-475b-b3e2-91ef65e215c0)
 
 
