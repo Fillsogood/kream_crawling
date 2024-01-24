@@ -53,7 +53,7 @@ def execute_query(conn,query,args=None):
         cursor.execute(query,args or ())
         if query.strip().upper().startswith('SELECT'):
             return cursor.fetchall()
-        else:
+        else:   
             conn.commit()            
 
 #페이지 다운 함수
@@ -75,13 +75,16 @@ driver.find_elements(By.CSS_SELECTOR,".gnb_list")[0].find_elements(By.CSS_SELECT
 
 time.sleep(2)
 
-#모든 카테고리 링크 이동
+#모든 카테고리
 cat_shell =driver.find_elements(By.CLASS_NAME,"li_tab ")
 
+#각 카테고리 마다 들어가서 데이터 긁어와서 DB에 저장
 for i in cat_shell:
+    #각 카테고리 클릭
     i.find_element(By.CSS_SELECTOR,".tab_name").click()
     time.sleep(1)
     category = i.find_element(By.CSS_SELECTOR,".tab_name").text
+    #카테고리 전체 및 럭셔리 건너 뛰고 시작
     if category != "전체" and category != "럭셔리": 
         click_p_r()
         time.sleep(1)
@@ -90,7 +93,7 @@ for i in cat_shell:
         soup = BeautifulSoup(html,"html.parser")
         items = soup.select(".item_inner")
         for j in items:
-            product_brand = j.select_one(".product_info_area").text #str형
+            product_brand = j.select_one(".product_info_brand.brand").text #str형
             product_name = j.select_one(".translated_name").text #str형
             product_price = j.select_one(".amount").text.split(" ")[1] #str형 공백 제거
             execute_query(conn,"INSERT INTO kream (category, brand, product_name, price) VALUES (%s, %s, %s, %s)", (category,product_brand,product_name,product_price))

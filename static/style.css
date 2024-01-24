@@ -1,0 +1,50 @@
+
+input[type="checkbox"] {
+    float: right;
+    position: relative;
+    right: 15px;
+    top: 6px;
+}
+#input_text{
+    width: 690px;
+    
+}
+#git_img{
+    color: black;
+}
+#search_btn{
+    background-color: #6c757d;
+    border-color: #565e64;
+    width: 100px;
+    height: 37px;
+    font-size: 16px;
+}
+#delete_btn{
+    background-color: #6c757d;
+    border-color: #565e64;
+    float: right;
+    
+}
+#total_search_btn{
+    background-color: #6c757d;
+    border-color: #565e64;
+    float: right;
+    margin-right: 5px;
+}
+#total_search_btn:hover{
+    background-color: #565e64;
+}
+#search_btn:hover{
+    background-color: #565e64;
+}
+#delete_btn:hover{
+    background-color: #565e64;
+}
+#p_update{
+    float: right;
+}
+.P_n{
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+}
